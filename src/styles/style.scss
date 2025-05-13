@@ -1,0 +1,404 @@
+@import "root.css";
+$backgroundColor: var(--backgroundColor);
+$borderColor: var(--borderColor);
+$strokeColor: var(--strokeColor);
+$contrastColor: var(--contrastColor);
+$primaryColor: var(--primaryColor);
+$overlayColor: var(--overlayColor);
+$maskColor: var(--maskColor);
+$readColor: var(--readColor);
+$unColor: var(--unColor);
+$radColor: var(--radColor);
+$returnColor: var(--returnColor);
+
+@mixin flex($j, $a, $f) {
+    display: flex;
+    justify-content: $j;
+    align-items: $a;
+    flex-direction: $f;
+}
+
+@font-face {
+    font-family: m;
+    src: url("../fonts/Milonga-Regular.ttf");
+}
+
+@font-face {
+    font-family: l;
+    src: url("../fonts/Livvic-Regular.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    text-decoration: none;
+}
+
+body {
+    background-color: $backgroundColor;
+    display: grid;
+    place-items: center;
+
+    #root {
+        width: 100%;
+        max-width: 28rem;
+        height: 100svh;
+        border-right: 1px solid $borderColor;
+        border-left: 1px solid $borderColor;
+        background-color: $backgroundColor;
+
+        @media (max-width: 460px) {
+            border: none;
+        }
+
+        header {
+            @include flex(center, center, row);
+            padding: 0 14px;
+            height: 40px;
+            border-bottom: 1px solid $borderColor;
+
+            h1 {
+                width: 100%;
+                text-align: center;
+                color: $contrastColor;
+                font-family: m;
+                font-weight: 100;
+                font-size: 14px;
+            }
+
+            svg {
+                transition: 0.1s ease;
+                height: 16px;
+                width: 16px;
+                stroke: $strokeColor;
+                fill: none;
+                cursor: pointer;
+
+                &:hover {
+                    scale: 1.1;
+                    stroke: $contrastColor;
+                }
+
+                &[aria-checked="true"] {
+                    stroke: $primaryColor;
+                    fill: $primaryColor;
+                }
+            }
+        }
+
+        .viewHome {
+            height: calc(100svh - 40px);
+            width: 100%;
+
+            .content-flow-x {
+                width: 100%;
+                height: 50px;
+                @include flex(flex-start, center, row);
+                padding: 0 14px;
+                gap: 8px;
+                overflow: scroll;
+
+                &::-webkit-scrollbar {
+                    width: 0;
+                    height: 0;
+                }
+
+                @media (max-width: 460px) {
+                    width: 100vw;
+                }
+
+                .cblock {
+                    transition: 0.2s ease;
+                    @include flex(center, center, row);
+                    border: 1px solid $borderColor;
+                    border-radius: 100px;
+                    padding: 7px 18px;
+                    gap: 8px;
+                    opacity: 0.4;
+
+                    .feeling-indicator {
+                        border-radius: 100px;
+                        padding: 3.2px;
+                        background-color: $borderColor;
+                    }
+
+                    .all {
+                        background-color: $contrastColor;
+                    }
+
+                    p {
+                        font-size: 10px;
+                        color: $contrastColor;
+                        font-family: l;
+                    }
+                }
+
+                .active {
+                    background-color: $overlayColor;
+                    border-color: $radColor;
+                    opacity: 1;
+                }
+            }
+
+            .papers-grid-y {
+                background-color: $overlayColor;
+                border-radius: 30px 30px 0 0;
+                width: 100%;
+                height: calc(100svh - 90px);
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                padding: 22px 14px 5svh 14px;
+                gap: 8px;
+                overflow: scroll;
+
+                &::-webkit-scrollbar {
+                    width: 0;
+                    height: 0;
+                }
+
+                .paper-obj {
+                    transition: 0.2s ease;
+                    border-radius: 8px;
+                    height: 200px;
+                    width: 100%;
+                    background-color: $borderColor;
+                    cursor: pointer;
+
+                    &:hover {
+                        filter: opacity(80%);
+                    }
+                }
+
+                .bottom-action-bglay {
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 10svh;
+                    @include flex(center, center, row);
+                    background: linear-gradient(180deg, transparent 0%, $backgroundColor 91.37%);
+
+                    .actions-cols {
+                        border-radius: 100px;
+                        max-width: 20rem;
+                        background-color: $borderColor;
+                        width: calc(100% - 80px);
+                        margin: 0 40px;
+                        height: 7svh;
+                        @include flex(space-between, center, row);
+
+                        .btnMask {
+                            width: 100%;
+                            height: 100%;
+                            @include flex(center, center, row);
+                            cursor: pointer;
+                            gap: 8px;
+
+                            svg {
+                                transition: 0.2s ease;
+                                width: 14px;
+                                height: 14px;
+                                stroke: $maskColor;
+                                fill: none;
+                            }
+
+                            p {
+                                transition: 0.2s ease;
+                                color: $maskColor;
+                                font-family: l;
+                            }
+
+                            &:nth-child(1) {
+                                border-right: 1px solid $overlayColor;
+                            }
+
+                            &:hover {
+                                svg,
+                                p {
+                                    color: $contrastColor;
+                                    stroke: $contrastColor;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .display-verse {
+            transition: 0.05s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100svh;
+            background-color: $backgroundColor;
+            display: grid;
+            place-items: center;
+            scale: 1;
+            z-index: 1;
+
+            &[aria-busy="false"] {
+                scale: 0;
+            }
+        }
+
+        .sm-post {
+            background-color: $overlayColor;
+            border-radius: 10px;
+            width: calc(100% - 3rem);
+            max-width: 30rem;
+            height: fit-content;
+            margin: 1.5rem;
+
+            .sm-header {
+                @include flex(center, center, row);
+                padding: 0 16px;
+                height: 50px;
+                border-bottom: 1px solid $backgroundColor;
+
+                h1 {
+                    width: 100%;
+                    text-align: center;
+                    color: $contrastColor;
+                    font-family: m;
+                    font-weight: 100;
+                    font-size: 14px;
+                }
+
+                svg {
+                    transition: 0.1s ease;
+                    height: 16px;
+                    width: 16px;
+                    stroke: $strokeColor;
+                    fill: none;
+                    cursor: pointer;
+
+                    &:hover {
+                        scale: 1.1;
+                        stroke: $contrastColor;
+                    }
+
+                    &[aria-checked="true"] {
+                        stroke: $primaryColor;
+                        fill: $primaryColor;
+                    }
+                }
+            }
+
+            .sm-content {
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                p {
+                    font-family: m;
+                    width: 100%;
+                    color: $readColor;
+                }
+
+                .arabic {
+                    text-align: right;
+                }
+
+                .transliteration {
+                    font-size: 10px;
+                }
+            }
+
+            .sm-from {
+                height: 50px;
+                width: 100%;
+                @include flex(center, center, row);
+                color: $unColor;
+                border-top: 1px solid $backgroundColor;
+
+                .px-from {
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .return-main {
+            transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-radius: 100px;
+            width: 60px;
+            height: 60px;
+            border: 1px solid $radColor;
+            @include flex(center, center, row);
+            position: fixed;
+            cursor: pointer;
+            bottom: 8svh;
+
+            svg {
+                transition: 0.2s ease;
+                fill: none;
+                stroke: $returnColor;
+                height: 30px;
+                width: 30px;
+            }
+
+            &:hover {
+                border-color: $contrastColor;
+
+                svg {
+                    stroke: $contrastColor;
+                }
+            }
+
+            &[aria-busy="false"] {
+                bottom: -5svh;
+            }
+        }
+
+        .meet-up {
+            @include flex(center, center, column);
+            width: 100%;
+            height: calc(100svh - 40px);
+            padding: 38px;
+            text-align: center;
+            gap: 16px;
+
+            img {
+                width: 70px;
+                height: 70px;
+                object-fit: cover;
+                border-radius: 100px;
+            }
+
+            h2 {
+                color: $contrastColor;
+                font-family: l;
+            }
+
+            p {
+                font-family: l;
+                color: $readColor;
+                font-size: 10px;
+
+                span {
+                    color: $primaryColor;
+                }
+            }
+
+            a {
+                transition: 0.2s ease;
+                border-radius: 50px;
+                color: $returnColor;
+                border: 1px solid $radColor;
+                background-color: transparent;
+                padding: 10px 18px;
+                font-family: l;
+                font-size: 10px;
+
+                &:hover {
+                    color: $contrastColor;
+                    border-color: $contrastColor;
+                }
+            }
+        }
+    }
+}
