@@ -271,13 +271,12 @@ body {
                     transition: 0.1s ease;
                     height: 16px;
                     width: 16px;
-                    stroke: $strokeColor;
-                    fill: none;
+                    fill: $strokeColor;
                     cursor: pointer;
 
                     &:hover {
                         scale: 1.1;
-                        stroke: $contrastColor;
+                        fill: $contrastColor;
                     }
 
                     &[aria-checked="true"] {
