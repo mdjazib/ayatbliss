@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet-async';
 import { Display } from '../components/Display';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -1347,9 +1346,6 @@ export const Home = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Ayat Bliss</title>
-            </Helmet>
             <Display data={displayData} visible={displayVisible} setVisible={setDisplayVisible} />
             <div className="viewHome">
                 <div className="content-flow-x">
